@@ -9,15 +9,28 @@
     <script src="minesweeper-script.js"></script>
 </head>
 <body>
-    <div class="main column">
-        <!-- <div class="spacer"></div> -->
-        <div class="row">
+    <div class="main-game column">
+        <div class="row expand-w">
             <class class="column">
-                <h2>Minesweeper</h2>
+                <h3>Minesweeper</h3>
                 <h1 id="player-name-h"></h1>
             </class>
         </div>
-        <!-- <div class="spacer"></div> -->
+
+        <div class="window-content">
+            <div class="column">
+                <div class="row status-board">
+                    <div class="score" id="score1">001</div>
+                    <div class="spacer"></div>
+                    <div class="smiley-frame">
+                        <div class="smiley"></div>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="score" id="timer">000</div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </body>
 </html>

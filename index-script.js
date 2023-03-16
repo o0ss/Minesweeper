@@ -9,6 +9,8 @@ function Start() {
         playerName = "PlayerOne";
     }
 
+    sessionStorage.setItem('playerName', playerName);
+
     setTimeout(() => {
         window.location.href = "minesweeper.html"
     }, 500);
