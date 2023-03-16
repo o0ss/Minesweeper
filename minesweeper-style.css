@@ -30,7 +30,7 @@ div {
 }
 
 body {
-    background-color: rgb(51, 51, 51);
+    background-color: rgb(50, 50, 50);
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: rgb(219, 219, 219);
 }
@@ -42,7 +42,7 @@ body {
 }
 
 .text-input {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(41, 41, 41);
     border-style: solid;
     border-radius: 0.7em;
     text-align: center;
@@ -50,7 +50,7 @@ body {
     font-family:monospace;
 }
 
-#player-name {
+#player-name-field {
     
     font-size: large;
     font-weight: 600;
@@ -60,9 +60,31 @@ body {
 button {
     padding: 8px 28px;
     background-color: rgb(255, 221, 0);
-    border: 1px solid rgb(50, 50, 50);
+    border: 4px solid rgb(50, 50, 50);
     border-radius: 0.7em;
     font-weight: 800;
     font-size: large;
     font-variant:small-caps;
+    color: rgb(56, 48, 1);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    border-color: whitesmoke;
+}
+
+#start-button {
+    transition: all 0.5s ease;
+}
+
+#start-button.clicked  {
+    transition: all 0.5s ease;
+    transform: scale(24);
+    border: 20px solid rgb(255, 221, 0);
+    color: rgb(50, 50, 50);
+    opacity: 0;
+}
+
+.game-main {
+    align-items: start;
 }
