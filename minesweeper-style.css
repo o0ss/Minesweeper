@@ -1,0 +1,68 @@
+div {
+    display: flex;
+    padding: 8px;
+}
+
+.column {
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.center {
+    justify-content: center;
+}
+
+.spacer {
+    flex: auto;
+}
+
+.more-padding {
+    padding: 16px;
+}
+
+.extra-padding {
+    padding: 32px;
+}
+
+body {
+    background-color: rgb(51, 51, 51);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(219, 219, 219);
+}
+
+.main {
+    height: 100vh;
+    width: 100vw;
+    align-content: center;
+}
+
+.text-input {
+    background-color: rgb(50, 50, 50);
+    border-style: solid;
+    border-radius: 0.7em;
+    text-align: center;
+    color: whitesmoke;
+    font-family:monospace;
+}
+
+#player-name {
+    
+    font-size: large;
+    font-weight: 600;
+    padding: 10px;
+}
+
+button {
+    padding: 8px 28px;
+    background-color: rgb(255, 221, 0);
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 0.7em;
+    font-weight: 800;
+    font-size: large;
+    font-variant:small-caps;
+}
