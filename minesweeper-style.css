@@ -102,6 +102,9 @@ button:hover {
     border-right: 4px solid rgb(128, 128, 128);
     border-bottom: 4px solid rgb(128, 128, 128);
     padding: 4px 8px;
+    /* Temp */
+    width: 50%;
+    height: 40%;
 }
 
 .status-board {
@@ -111,6 +114,7 @@ button:hover {
     border-right: 4px solid rgb(255, 255, 255);
     border-bottom: 4px solid rgb(255, 255, 255);
     padding: 4px;
+    width: 100%;
 }
 
 .score {
@@ -121,19 +125,29 @@ button:hover {
     border-right: 1px solid rgb(255, 255, 255);
     border-bottom: 1px solid rgb(255, 255, 255);
     padding: 2px;
-    font-family:monospace;
+    font-family:'7segment', 'Orbitron', Courier, monospace;
     font-weight:900;
+    font-size: 2em;
 }
 
 .smiley-frame {
     background-color: rgb(109, 109, 109) ;
     padding: 1px;
+    height: 100%;
+    aspect-ratio: 1;
 }
 
 .smiley {
     background-color: rgb(179, 179, 179);
-    border-top: 2px solid rgb(128, 128, 128);
-    border-left: 2px solid rgb(128, 128, 128);
-    border-right: 2px solid rgb(255, 255, 255);
-    border-bottom: 2px solid rgb(255, 255, 255);
+    border-top: 2px solid rgb(255, 255, 255);
+    border-left: 2px solid rgb(255, 255, 255);
+    border-right: 2px solid rgb(128, 128, 128);
+    border-bottom: 2px solid rgb(128, 128, 128);
+    padding: 0px;
+    aspect-ratio: 1;
+}
+
+.smiley-icon {
+    aspect-ratio: 1;
+    width: 100%;
 }
