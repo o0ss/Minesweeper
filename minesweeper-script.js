@@ -36,6 +36,7 @@ window.onload = function() {
         }
         grid.appendChild(new_row);
     }
+
     addClickListenerToCells();
 
     // document.addEventListener("contextmenu", function(event) {
@@ -57,6 +58,7 @@ function addClickListenerToCells() {
     let smiley = document.getElementById('smiley');
     for (let i = 0; i < cells.length; i++) {
         const c = cells[i];
+
         c.addEventListener('click', function (event) {
             if(event.shiftKey) { // CTRL + Click
                 tryToggleFlag(this);
@@ -75,10 +77,15 @@ function addClickListenerToCells() {
     }
 }
 
-function tryOpen(cell) {
+function idToCoords(id) {
     const coords = Array(2);
-    coords[0] = cell.id.split('-')[0]; // Row
-    coords[1] = cell.id.split('-')[1]; // Column
+    coords[0] = id.split('-')[0]; // Row
+    coords[1] = id.split('-')[1]; // Column
+    return coords;
+}
+
+function tryOpen(cell) {
+    const coords = idToCoords(cell.id);
     if(!cs_array[coords[0]][coords[1]].isOpen) {
         open(cell, coords);
     }
@@ -93,7 +100,6 @@ function tryOpenWithCoords(coords) {
 }
 
 function open(cell, coords) {
-
     cell.classList.add('open');
     cs_array[coords[0]][coords[1]].isOpen = true;
 
@@ -103,6 +109,8 @@ function open(cell, coords) {
         // Explode and open other mines
         cell.classList.add('mine');
         cell.classList.add('explode');
+        document.getElementById('smiley').classList.add('busted');
+        openAllMines();
         return;
     }
 
@@ -162,5 +170,17 @@ function tryToggleFlag(cell) {
     } else {
         cell.classList.add('flagged');
         cs_array[r][c].isFlagged = true;
+    }
+}
+
+function openAllMines() {
+    let cells = document.getElementsByClassName('cell');
+    for (let i = 0; i < cells.length; i++) {
+        const c = cells[i];
+        let coords = idToCoords(c.id);
+        if(cs_array[coords[0]][coords[1]].isMine){
+            c.classList.add('open');
+            c.classList.add('mine');
+        }
     }
 }
