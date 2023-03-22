@@ -2,12 +2,16 @@ class Cell {
     constructor() {
         this.isMine = Math.random() < 0.1 ? true : false;
         this.isOpen = false;
+        this.isFlagged = false;
     }
 }
 
 var rows = 14;
 var cols = 20;
 var cs_array = Array(rows);
+var mine_count = 0;
+var lost = false;
+var won = false;
 
 window.onload = function() {
     var playerName = sessionStorage.getItem('playerName');
@@ -24,6 +28,7 @@ window.onload = function() {
 
         for (let j = 0; j < cs_array[i].length; j++) {
             cs_array[i][j] = new Cell();
+            if (cs_array[i][j].isMine) mine_count++;
             new_cell = document.createElement('div');
             new_cell.classList.add('cell');
             new_cell.id = i.toString() + '-' + j.toString();
@@ -32,6 +37,12 @@ window.onload = function() {
         grid.appendChild(new_row);
     }
     addClickListenerToCells();
+
+    // document.addEventListener("contextmenu", function(event) {
+    //     event.preventDefault();
+    // });
+
+    document.getElementById('mine-count').innerHTML = mine_count.toString().padStart(3, '0');
 
     // Open all
     // let cells = document.getElementsByClassName('cell');
@@ -43,10 +54,23 @@ window.onload = function() {
 
 function addClickListenerToCells() {
     let cells = document.getElementsByClassName('cell');
+    let smiley = document.getElementById('smiley');
     for (let i = 0; i < cells.length; i++) {
         const c = cells[i];
-        c.addEventListener('click', function () {
-            tryOpen(this);
+        c.addEventListener('click', function (event) {
+            if(event.shiftKey) { // CTRL + Click
+                tryToggleFlag(this);
+            } else { // Click
+                tryOpen(this);
+            }
+        });
+
+        c.addEventListener('mousedown', function() {
+            smiley.classList.add('oh');
+        });
+
+        c.addEventListener('mouseup', function() {
+            smiley.classList.remove('oh');
         });
     }
 }
@@ -56,35 +80,87 @@ function tryOpen(cell) {
     coords[0] = cell.id.split('-')[0]; // Row
     coords[1] = cell.id.split('-')[1]; // Column
     if(!cs_array[coords[0]][coords[1]].isOpen) {
-        cell.classList.add('open');
-        if(cs_array[coords[0]][coords[1]].isMine){
-            // Explode and open other mines
-            cell.classList.add('mine');
-            cell.innerHTML = '*'
-            cell.classList.add('explode');
-        } else {
-            // Count mines around
-            let count = getCountMinesAround(coords);
-            cell.innerHTML = count.toString();
+        open(cell, coords);
+    }
+}
+
+function tryOpenWithCoords(coords) {
+    if(!cs_array[coords[0]][coords[1]].isOpen) {
+        let id = coords[0].toString() + '-' + coords[1].toString();
+        let cell = document.getElementById(id);
+        open(cell, coords);
+    }
+}
+
+function open(cell, coords) {
+
+    cell.classList.add('open');
+    cs_array[coords[0]][coords[1]].isOpen = true;
+
+    if(cell.classList.contains('flagged')) cell.classList.remove('flagged');
+
+    if (cs_array[coords[0]][coords[1]].isMine) {
+        // Explode and open other mines
+        cell.classList.add('mine');
+        cell.classList.add('explode');
+        return;
+    }
+
+    // Count mines around
+    let count = getCountMinesAround(coords);
+    if (count > 0) {
+        cell.innerHTML = count.toString();
+        switch (count) {
+            case 1:
+                cell.classList.add('o1');
+                break;
+            case 2:
+                cell.classList.add('o2');
+                break;
+            case 3:
+                cell.classList.add('o3');
+                break;
+            case 4:
+                cell.classList.add('o4');
+                break;
+            default:
+                cell.classList.add('o5');
         }
-        cs_array[coords[0]][coords[1]].isOpen = true;
+    } else {
+        let r = parseInt(coords[0]);
+        let c = parseInt(coords[1]);
+        for (let i = Math.max(0,r-1); i < Math.min(rows,r+2); i++) {
+            for (let j = Math.max(0,c-1); j < Math.min(cols,c+2) ; j++) {    
+                let cs = Array(2);
+                cs[0] = i;
+                cs[1] = j;
+                tryOpenWithCoords(cs)
+            }
+        }
     }
 }
 
 function getCountMinesAround(coords) {
-    console.log(coords);
     let count = 0;
     let r = parseInt(coords[0]);
     let c = parseInt(coords[1]);
-    console.log(r+'-'+c);
     for (let i = Math.max(0,r-1); i < Math.min(rows,r+2); i++) {
-        console.log('i: '+i);
         for (let j = Math.max(0,c-1); j < Math.min(cols,c+2) ; j++) {
-            console.log('j: '+j);
-
             if(cs_array[i][j].isMine)
                 count++;
         }
     }
     return count;
+}
+
+function tryToggleFlag(cell) {
+    let r = parseInt(cell.id.split('-')[0]); // Row
+    let c = parseInt(cell.id.split('-')[1]);
+    if(cs_array[r][c].isFlagged) {
+        cell.classList.remove('flagged');
+        cs_array[r][c] = false;
+    } else {
+        cell.classList.add('flagged');
+        cs_array[r][c].isFlagged = true;
+    }
 }

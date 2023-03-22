@@ -55,7 +55,6 @@ body {
 }
 
 #player-name-field {
-    
     font-size: large;
     font-weight: 600;
     padding: 10px;
@@ -129,6 +128,8 @@ button:hover {
     font-family:'7segment','Orbitron', Courier, monospace;
     font-weight:900;
     font-size: 2em;
+    width: 60px;
+    justify-content: center;
 }
 
 .smiley-frame {
@@ -146,6 +147,16 @@ button:hover {
     border-bottom: 2px solid rgb(128, 128, 128);
     padding: 0px;
     aspect-ratio: 1;
+    background-image: url('img/smiley.svg');
+    background-position: center;
+}
+
+.smiley.oh {
+    background-image: url('img/smiley-oh.svg');
+}
+
+.smiley.busted {
+    background-image: url('img/smiley-busted.svg');
 }
 
 .smiley-icon {
@@ -179,17 +190,47 @@ button:hover {
     height: 22px;
     font-family: Courier, monospace;
     font-weight: 900;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.cell.flagged {
+    background-image: url('img/flag.svg');
+    background-position: center;
 }
 
 .cell.open {
     border: 1px solid rgb(128, 128, 128);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 22px;
     justify-content: center;
     color: black;
 }
 
+.cell.o1 {
+    color: rgb(31, 31, 240);
+}
+
+.cell.o2 {
+    color: rgb(15, 112, 3);
+}
+
+.cell.o3 {
+    color: rgb(222, 1, 8);
+}
+
+.cell.o4 {
+    color: rgb(21, 26, 157);
+}
+
+.cell.o5 {
+    color: rgb(157, 0, 255);
+}
+
 .cell.mine {
-    flex-direction: row;
-    font-size: larger;
+    background-image: url(img/mine.svg);
+    background-position:center;
     font-weight: 900;
 }
 
