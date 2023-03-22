@@ -110,6 +110,7 @@ function open(cell, coords) {
         cell.classList.add('mine');
         cell.classList.add('explode');
         document.getElementById('smiley').classList.add('busted');
+        lost = true;
         openAllMines();
         return;
     }
@@ -183,4 +184,8 @@ function openAllMines() {
             c.classList.add('mine');
         }
     }
+}
+
+function smileyClicked() {
+    if(lost == true) location.reload();
 }
